@@ -31,7 +31,8 @@ const ProfileContent = () => {
         <>
             <h5 className="card-title">Welcome {accounts[0].name}</h5>
             {graphData ? (
-                <ProfileData graphData={graphData} />
+                // <ProfileData graphData={graphData} />
+                <p>hello</p>
             ) : (
                 <Button variant="secondary" onClick={RequestProfileData}>
                     Request Profile Information
