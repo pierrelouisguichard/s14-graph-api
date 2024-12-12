@@ -19,7 +19,7 @@ export const PageLayout = (props) => {
 };
 
 const StyledNavbar = styled.nav`
-  background-color: #007bff;
+  background-color: #074352;
   color: white;
   display: flex;
   justify-content: space-between;

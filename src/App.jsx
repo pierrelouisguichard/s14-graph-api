@@ -3,7 +3,6 @@ import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
 } from "@azure/msal-react";
-import styled from "styled-components";
 import { PageLayout } from "./components/PageLayout";
 import MainTable from "./components/MainTable";
 
@@ -18,7 +17,7 @@ const MainContent = () => {
       </AuthenticatedTemplate>
 
       <UnauthenticatedTemplate>
-        <CardTitle>Please sign-in to see your profile information.</CardTitle>
+        <h1> Please Sign In </h1>
       </UnauthenticatedTemplate>
     </div>
   );
@@ -31,12 +30,3 @@ export default function App() {
     </PageLayout>
   );
 }
-
-/**
- * Styled Components for better design
- */
-const CardTitle = styled.h5`
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 20px;
-`;

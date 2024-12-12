@@ -1,15 +1,118 @@
 import { loginRequest } from "./../authConfig";
-import { callMsGraph } from "./../graph";
+import { callMsGraph, callMsGraphForGrpSvc } from "./../graph";
 import React, { useEffect, useState } from "react";
 import { useMsal } from "@azure/msal-react";
 import styled from "styled-components";
+import StyledTable from "./Table";
 
 /**
  * Renders information about the signed-in user or a button to retrieve data about the user
  */
 const MainTable = () => {
+  const data = [
+    [
+      "Folder / Security Group",
+      "grp_00_S14-Public",
+      "grp_01_Management",
+      "grp_02_Corporate",
+      "grp_03_Broker",
+      "grp_04_Compliance",
+      "grp_05_Finance",
+      "grp_06_Funds",
+      "grp_07_HR",
+      "grp_08_Marketing",
+      "grp_09_BusinessDev",
+      "grp_10_IT-Dev",
+      "grp_11_Research",
+      "grp_12_Staff-Training",
+      "grp_13_IT-General",
+      "grp_14_IT-Management",
+    ],
+    ["00_S14-Public", "X", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["01_Management", "", "X", "", "", "", "", "", "", "", "", "", "", "", ""],
+    ["02_Corporate", "", "", "X", "", "", "", "", "", "", "", "", "", "", ""],
+    ["03_Brokers", "", "", "", "X", "", "", "", "", "", "", "", "", "", ""],
+    ["04_Compliance", "", "", "", "", "X", "", "", "", "", "", "", "", "", ""],
+    ["05_Finance", "", "", "", "", "", "X", "", "", "", "", "", "", "", ""],
+    ["06_Funds", "", "", "", "", "", "", "X", "", "", "", "", "", "", ""],
+    ["07_HR", "", "", "", "", "", "", "", "X", "", "", "", "", "", ""],
+    ["08_Marketing", "", "", "", "", "", "", "", "", "X", "", "", "", "", ""],
+    [
+      "09_Business-Dev",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "X",
+      "",
+      "",
+      "",
+      "",
+    ],
+    ["10_IT-Dev", "", "", "", "", "", "", "", "", "", "", "X", "", "", ""],
+    ["11_Research", "", "", "", "", "", "", "", "", "", "", "", "X", "", ""],
+    [
+      "12_Staff-Training",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "X",
+      "",
+    ],
+    [
+      "13_IT-General",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "X",
+      "",
+    ],
+    [
+      "14_IT-Management",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "X",
+    ],
+  ];
   const { instance, accounts } = useMsal();
   const [graphData, setGraphData] = useState(null);
+  const [groupSvcData, setGroupSvcData] = useState(null); // State for second table
 
   function RequestProfileData() {
     // Silently acquires an access token which is then attached to a request for MS Graph data
@@ -19,8 +122,12 @@ const MainTable = () => {
         account: accounts[0],
       })
       .then((response) => {
+        // Request data for both tables
         callMsGraph(response.accessToken).then((response) =>
           setGraphData(response)
+        );
+        callMsGraphForGrpSvc(response.accessToken).then((response) =>
+          setGroupSvcData(response)
         );
       });
   }
@@ -32,27 +139,24 @@ const MainTable = () => {
   return (
     <>
       <CardTitle>Welcome {accounts[0].name}</CardTitle>
+      <h2>1. Folder authorisations by security groups</h2>
+      <StyledTable data={data} />
       {graphData ? (
-        <Table>
-          <thead>
-            <tr>
-              {graphData[0].map((header, index) => (
-                <TableHeader key={index}>{header}</TableHeader>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {graphData.slice(1).map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <TableCell key={cellIndex}>{cell}</TableCell>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <div>
+          <h2>2. User names for groups services</h2>
+          <StyledTable data={graphData} />
+        </div>
       ) : (
         <LoadingText>Loading...</LoadingText>
+      )}
+
+      {groupSvcData ? (
+        <div>
+          <h2>3. Group services for security groups</h2>
+          <StyledTable data={groupSvcData} />
+        </div>
+      ) : (
+        <LoadingText>Loading Group Service Data...</LoadingText>
       )}
     </>
   );
@@ -64,28 +168,6 @@ const CardTitle = styled.h5`
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 20px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-`;
-
-const TableHeader = styled.th`
-  background-color: #f2f2f2;
-  padding: 10px;
-  text-align: left;
-  font-weight: bold;
-  border: 1px solid #ddd;
-`;
-
-const TableCell = styled.td`
-  max-width: 50px;
-  max-height: 50px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
 `;
 
 const LoadingText = styled.p`

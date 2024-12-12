@@ -38,8 +38,8 @@ export const SignOutButton = () => {
 };
 
 const ButtonStyled = styled.button`
-  background-color: #6c757d;
-  color: white;
+  background-color: #e3cfb6;
+  color: #074352;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -48,6 +48,6 @@ const ButtonStyled = styled.button`
   margin-left: 0.5rem;
 
   &:hover {
-    background-color: #5a6268;
+    background-color: #e3cfb6;
   }
 `;
