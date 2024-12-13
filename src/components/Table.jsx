@@ -1,13 +1,54 @@
 import React from "react";
 import styled from "styled-components";
 
+// Helper to generate columns
+const generateColumns = (cols, data) => {
+  return Array.from({ length: cols - 1 }, (_, colIndex) => (
+    <RotateHeader key={colIndex}>
+      <RotateDiv>
+        <HeaderSpan>{data[0][colIndex + 1]}</HeaderSpan>
+      </RotateDiv>
+    </RotateHeader>
+  ));
+};
+
+// Helper to generate rows
+const generateRows = (rows, cols, data) => {
+  return Array.from({ length: rows - 1 }, (_, rowIndex) => (
+    <TableRow key={rowIndex}>
+      <TableHeader>{data[rowIndex + 1][0]}</TableHeader>
+      {Array.from({ length: cols - 1 }, (_, colIndex) => (
+        <TableCell key={colIndex}>{data[rowIndex + 1][colIndex + 1]}</TableCell>
+      ))}
+    </TableRow>
+  ));
+};
+
+// React Component
+const StyledTable = ({ data }) => {
+  const rows = data.length;
+  const cols = data[0].length;
+
+  return (
+    <Table>
+      <thead>
+        <TableRow>
+          <TableHeader>{data[0][0]}</TableHeader>
+          {generateColumns(cols, data)}
+        </TableRow>
+      </thead>
+      <tbody>{generateRows(rows, cols, data)}</tbody>
+    </Table>
+  );
+};
+
+export default StyledTable;
+
 const Table = styled.table`
-  margin: 100px auto 200px; /* Centers the table horizontally and adds margin-top and margin-bottom */
+  margin: 100px auto 200px;
   font-size: 16px;
   width: 70%;
   color: #074352;
-  /* border-collapse: collapse; */
-  /* Optionally, use flexbox for centering vertically */
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -51,46 +92,3 @@ const HeaderSpan = styled.span`
   border-bottom: 2px solid #c9a271;
   padding: 9px 10px 5px 10px;
 `;
-
-// Helper to generate columns
-const generateColumns = (cols, data) => {
-  return Array.from({ length: cols - 1 }, (_, colIndex) => (
-    <RotateHeader key={colIndex}>
-      <RotateDiv>
-        <HeaderSpan>{data[0][colIndex + 1]}</HeaderSpan>
-      </RotateDiv>
-    </RotateHeader>
-  ));
-};
-
-// Helper to generate rows
-const generateRows = (rows, cols, data) => {
-  return Array.from({ length: rows - 1 }, (_, rowIndex) => (
-    <TableRow key={rowIndex}>
-      <TableHeader>{data[rowIndex + 1][0]}</TableHeader>
-      {Array.from({ length: cols - 1 }, (_, colIndex) => (
-        <TableCell key={colIndex}>{data[rowIndex + 1][colIndex + 1]}</TableCell>
-      ))}
-    </TableRow>
-  ));
-};
-
-// React Component
-const StyledTable = ({ data }) => {
-  const rows = data.length;
-  const cols = data[0].length;
-
-  return (
-    <Table>
-      <thead>
-        <TableRow>
-          <TableHeader>{data[0][0]}</TableHeader>
-          {generateColumns(cols, data)}
-        </TableRow>
-      </thead>
-      <tbody>{generateRows(rows, cols, data)}</tbody>
-    </Table>
-  );
-};
-
-export default StyledTable;

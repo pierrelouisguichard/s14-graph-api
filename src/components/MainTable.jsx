@@ -139,11 +139,11 @@ const MainTable = () => {
   return (
     <>
       <CardTitle>Welcome {accounts[0].name}</CardTitle>
-      <h2>1. Folder authorisations by security groups</h2>
+      <Title>1. Folder authorisations by security groups</Title>
       <StyledTable data={data} />
       {graphData ? (
         <div>
-          <h2>2. User names for groups services</h2>
+          <Title>2. User names for groups services</Title>
           <StyledTable data={graphData} />
         </div>
       ) : (
@@ -152,7 +152,7 @@ const MainTable = () => {
 
       {groupSvcData ? (
         <div>
-          <h2>3. Group services for security groups</h2>
+          <Title>3. Group services for security groups</Title>
           <StyledTable data={groupSvcData} />
         </div>
       ) : (
@@ -168,6 +168,12 @@ const CardTitle = styled.h5`
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 20px;
+  padding-left: 250px;
+  padding-top: 20px;
+`;
+
+const Title = styled.h2`
+  padding-left: 250px;
 `;
 
 const LoadingText = styled.p`

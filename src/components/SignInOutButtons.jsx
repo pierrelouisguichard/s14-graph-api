@@ -38,6 +38,7 @@ export const SignOutButton = () => {
 };
 
 const ButtonStyled = styled.button`
+  font-weight: bold;
   background-color: #e3cfb6;
   color: #074352;
   border: none;
