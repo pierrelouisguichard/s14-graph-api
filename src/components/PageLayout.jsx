@@ -6,13 +6,20 @@ import logo from "../assets/logo.png";
 
 export const PageLayout = (props) => {
   const isAuthenticated = useIsAuthenticated();
+  const currentDate = new Date();
+  const currentMonth = currentDate.toLocaleString("default", {
+    month: "short",
+  });
+  const currentYear = currentDate.getFullYear();
 
   return (
     <>
       <StyledNavbar>
         <NavbarLeft>
           <Logo src={logo} alt="S14 Capital Logo" />
-          <Title>S14 Capital: New Server Structure Dec 2024</Title>
+          <Title>
+            S14 Capital: New Server Structure {currentMonth} {currentYear}
+          </Title>
         </NavbarLeft>
         <NavbarRight>
           {isAuthenticated ? <SignOutButton /> : <SignInButton />}
@@ -29,7 +36,7 @@ const StyledNavbar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
