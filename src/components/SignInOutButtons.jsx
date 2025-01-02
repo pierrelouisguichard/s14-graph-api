@@ -34,7 +34,11 @@ export const SignOutButton = () => {
       });
   };
 
-  return <ButtonStyled onClick={handleRedirectLogout}>Sign Out</ButtonStyled>;
+  return (
+    <ButtonStyled onClick={handleRedirectLogout} className="no-print">
+      Sign Out
+    </ButtonStyled>
+  );
 };
 
 const ButtonStyled = styled.button`

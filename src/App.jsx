@@ -5,13 +5,14 @@ import {
 } from "@azure/msal-react";
 import { PageLayout } from "./components/PageLayout";
 import MainTable from "./components/MainTable";
+import styled from "styled-components";
 
 /**
  * If a user is authenticated, the ProfileContent component above is rendered. Otherwise, a message indicating a user is not authenticated is rendered.
  */
 const MainContent = () => {
   return (
-    <div>
+    <CenteredContainer>
       <AuthenticatedTemplate>
         <MainTable />
       </AuthenticatedTemplate>
@@ -19,7 +20,7 @@ const MainContent = () => {
       <UnauthenticatedTemplate>
         <h1> Please Sign In </h1>
       </UnauthenticatedTemplate>
-    </div>
+    </CenteredContainer>
   );
 };
 
@@ -30,3 +31,13 @@ export default function App() {
     </PageLayout>
   );
 }
+
+const CenteredContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 50px;
+  flex-direction: column; /* Center vertically */
+  text-align: center; /* Ensure the text is centered */
+  font-size: 15px;
+`;

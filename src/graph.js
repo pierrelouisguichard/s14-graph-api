@@ -1,3 +1,8 @@
+// Helper function to truncate strings to 10 characters and append ellipsis
+const truncateString = (str, maxLength = 24) => {
+  return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
+};
+
 /**
  * Fetches groups, filters them based on the given prefix, and creates a table showing group memberships.
  * @param {string} accessToken - The access token for MS Graph API.
@@ -32,7 +37,7 @@ export async function fetchGroupMemberships(accessToken, groupNamePattern) {
 
     // Step 2: Fetch members for each group
     for (const group of filteredGroups) {
-      const groupName = group.displayName;
+      const groupName = truncateString(group.displayName); // Truncate group name if longer than 10 characters
       groupMembership.set(groupName, new Set());
 
       const membersResponse = await fetch(
@@ -49,7 +54,9 @@ export async function fetchGroupMemberships(accessToken, groupNamePattern) {
 
       // Process members
       for (const member of members.value) {
-        const memberName = member.displayName || "Unknown Member";
+        const memberName = truncateString(
+          member.displayName || "Unknown Member"
+        ); // Truncate member name if longer than 10 characters
         allMembers.add(memberName);
         groupMembership.get(groupName).add(memberName);
       }
@@ -88,6 +95,10 @@ export async function fetchGroupMemberships(accessToken, groupNamePattern) {
  */
 export async function callMsGraphForGrpSvc(accessToken) {
   return await fetchGroupMemberships(accessToken, /^grp_svc/); // Matches groups starting with 'grp_svc'
+}
+
+export async function callMsGraphForGrpSftp(accessToken) {
+  return await fetchGroupMemberships(accessToken, /^grp_sftp/); // Matches groups starting with 'grp_svc'
 }
 
 /**

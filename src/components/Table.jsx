@@ -30,29 +30,21 @@ const StyledTable = ({ data }) => {
   const cols = data[0].length;
 
   return (
-    <Table>
-      <thead>
-        <TableRow>
-          <TableHeader>{data[0][0]}</TableHeader>
-          {generateColumns(cols, data)}
-        </TableRow>
-      </thead>
-      <tbody>{generateRows(rows, cols, data)}</tbody>
-    </Table>
+    <>
+      <table>
+        <thead>
+          <TableRow>
+            <TableHeader>{data[0][0]}</TableHeader>
+            {generateColumns(cols, data)}
+          </TableRow>
+        </thead>
+        <tbody>{generateRows(rows, cols, data)}</tbody>
+      </table>
+    </>
   );
 };
 
 export default StyledTable;
-
-const Table = styled.table`
-  margin: 100px auto 200px;
-  font-size: 16px;
-  width: 70%;
-  color: #074352;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`;
 
 const TableRow = styled.tr`
   &:nth-child(even) {
@@ -61,10 +53,8 @@ const TableRow = styled.tr`
 `;
 
 const TableCell = styled.td`
-  border: 2px solid #c9a271;
-  padding: 8px;
+  border: 1px solid #c9a271;
   text-align: center;
-  width: 30px;
 
   &:hover {
     background-color: #e6f7ff;
@@ -72,8 +62,8 @@ const TableCell = styled.td`
 `;
 
 const TableHeader = styled.th`
-  padding: 11px;
-  text-align: center;
+  padding: 3px 9px;
+  text-align: left;
 `;
 
 const RotateHeader = styled(TableHeader)`
@@ -83,12 +73,17 @@ const RotateHeader = styled(TableHeader)`
 `;
 
 const RotateDiv = styled.div`
-  transform: translate(25px, 51px) rotate(315deg);
-  width: 30px;
+  transform: translate(9px, 55px) rotate(315deg);
+  width: 15px;
   text-align: center;
 `;
 
 const HeaderSpan = styled.span`
-  border-bottom: 2px solid #c9a271;
-  padding: 9px 10px 5px 10px;
+  border-bottom: 1px solid #c9a271;
+  padding: 20px 10px 0px 2px;
+  display: inline-block;
+  max-width: 200px; /* Maximum width for the header */
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflowing text */
+  text-overflow: ellipsis; /* Adds '...' for overflowing text */
 `;
