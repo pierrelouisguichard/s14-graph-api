@@ -9,8 +9,10 @@ import { useMsal } from "@azure/msal-react";
 import styled from "styled-components";
 import StyledTable from "./Table";
 import PrintCoverPage from "./PrintCoverPage";
+import { helix } from "ldrs";
 
 const MainTable = () => {
+  helix.register();
   const [showPrintableArea, setShowPrintableArea] = useState(false);
 
   const handlePrint = () => {
@@ -115,7 +117,7 @@ const MainTable = () => {
               <StyledTable data={data2} />
             </TableSection>
           ) : (
-            <LoadingText>Loading...</LoadingText>
+            <l-helix size="45" speed="2.5" color="black"></l-helix>
           )}
 
           {graphData ? (
@@ -124,7 +126,7 @@ const MainTable = () => {
               <StyledTable data={graphData} />
             </TableSection>
           ) : (
-            <LoadingText>Loading...</LoadingText>
+            <l-helix size="45" speed="2.5" color="black"></l-helix>
           )}
 
           {groupSvcData ? (
@@ -133,7 +135,7 @@ const MainTable = () => {
               <StyledTable data={groupSvcData} />
             </TableSection>
           ) : (
-            <LoadingText>Loading Group Service Data...</LoadingText>
+            <l-helix size="45" speed="2.5" color="black"></l-helix>
           )}
         </>
       ) : (
