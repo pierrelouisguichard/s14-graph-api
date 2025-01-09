@@ -26,9 +26,11 @@ const MainContent = () => {
 
 export default function App() {
   return (
-    <PageLayout>
-      <MainContent />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <MainContent />
+      </PageLayout>
+    </>
   );
 }
 

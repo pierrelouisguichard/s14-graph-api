@@ -30,7 +30,7 @@ const StyledTable = ({ data }) => {
   const cols = data[0].length;
 
   return (
-    <>
+    <Container>
       <table>
         <thead>
           <TableRow>
@@ -40,7 +40,7 @@ const StyledTable = ({ data }) => {
         </thead>
         <tbody>{generateRows(rows, cols, data)}</tbody>
       </table>
-    </>
+    </Container>
   );
 };
 
@@ -64,6 +64,9 @@ const TableCell = styled.td`
 const TableHeader = styled.th`
   padding: 3px 9px;
   text-align: left;
+  @media print {
+    padding: 2px 7px;
+  }
 `;
 
 const RotateHeader = styled(TableHeader)`
@@ -72,10 +75,20 @@ const RotateHeader = styled(TableHeader)`
   text-align: left;
 `;
 
+const Container = styled.div`
+  font-size: 16px;
+  @media print {
+    font-size: 12px;
+  }
+`;
+
 const RotateDiv = styled.div`
   transform: translate(9px, 55px) rotate(315deg);
   width: 15px;
   text-align: center;
+  @media print {
+    transform: translate(6px, 54px) rotate(315deg);
+  }
 `;
 
 const HeaderSpan = styled.span`
